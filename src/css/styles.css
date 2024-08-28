@@ -42,9 +42,17 @@ button:hover {
   background-color: #218838;
 }
 
+#notes-list {
+  display: grid; /* Mengaktifkan grid layout */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Membuat kolom dengan lebar minimal 200px */
+  gap: 16px; /* Jarak antar catatan */
+  padding: 16px; /* Padding di sekitar kontainer */
+}
+
 .note {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  background-color: #f9f9f9; /* Warna latar belakang untuk catatan */
+  padding: 16px; /* Padding dalam catatan */
+  border: 1px solid #ddd; /* Border catatan */
+  border-radius: 8px; /* Membulatkan sudut */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Memberikan bayangan */
 }

@@ -1,51 +1,37 @@
 import { notesData } from "../utils/notesData.js";
+import "../components/note-item.js";
+import "../components/app-bar.js";
+import "../components/note-input.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const app = document.getElementById("app");
-  const form = document.getElementById("note-form");
-  const notesList = document.getElementById("notes-list");
+  const notesList = document.getElementById("note-list");
 
   // Fungsi untuk menampilkan catatan
   const displayNotes = () => {
     notesList.innerHTML = ""; // Kosongkan konten sebelumnya
     notesData.forEach((note) => {
-      const noteElement = document.createElement("div");
-      noteElement.className = "note";
-      noteElement.innerHTML = `
-                <h2>${note.title}</h2>
-                <p>${note.body}</p>
-                <small>Created At: ${new Date(note.createdAt).toLocaleString()}</small>
-            `;
+      const noteElement = document.createElement("note-item");
+      noteElement.setAttribute("title", note.title);
+      noteElement.setAttribute("body", note.body);
+      noteElement.setAttribute("createdAt", note.createdAt);
+      console.log("Appending note:", noteElement); // Log elemen yang ditambahkan
       notesList.appendChild(noteElement);
     });
   };
 
-  // Tampilkan catatan saat halaman dimuat
+  // Panggil fungsi untuk menampilkan catatan saat halaman dimuat
   displayNotes();
 
   // Event listener untuk menangani submit formulir
-  form.addEventListener("submit", (event) => {
-    event.preventDefault(); // Mencegah reload halaman
+  document.querySelector("note-input").addEventListener("add-note", (event) => {
+    const { title, body } = event.detail;
+    const createdAt = new Date().toISOString();
 
-    // Ambil nilai dari input
-    const title = document.getElementById("note-title").value;
-    const body = document.getElementById("note-body").value;
+    const noteElement = document.createElement("note-item");
+    noteElement.setAttribute("title", title);
+    noteElement.setAttribute("body", body);
+    noteElement.setAttribute("createdAt", createdAt);
 
-    // Tambahkan catatan baru ke array notesData
-    const newNote = {
-      id: `notes-${Date.now()}`, // ID unik berdasarkan timestamp
-      title,
-      body,
-      createdAt: new Date().toISOString(),
-      archived: false,
-    };
-
-    notesData.push(newNote); // Tambahkan catatan baru ke data
-
-    // Tampilkan ulang catatan yang telah diperbarui
-    displayNotes();
-
-    // Reset formulir setelah submit
-    form.reset();
+    notesList.appendChild(noteElement);
   });
 });

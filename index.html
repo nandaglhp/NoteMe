@@ -3,27 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>NoteMe</title>
     <link rel="stylesheet" href="/src/css/styles.css" />
   </head>
   <body>
-    <div id="app">
-      <!-- Elemen ini akan digunakan untuk menampilkan daftar catatan -->
-        <form id="note-form">
-            <h2>Tambah Catatan</h2>
-            <label for="note-title">Judul:</label>
-            <input type="text" id="note-title" name="title" placeholder="masukkan judul catatan" required>
-        
-            <label for="note-body">Isi:</label>
-            <textarea id="note-body" name="body" placeholder="Masukkan isi catatan" rows="4" required></textarea>
-            
-            <button type="submit">Tambah Catatan</button>
-        </form>
-
-        <!-- Elemen untuk menampilkan daftar catatan -->
-        <div id="notes-list"></div>
-    </div>
-    </div>
-    <script type="module" src="src/js/main.js"></script>
+    <app-bar></app-bar>
+    <note-input></note-input>
+    <div id="note-list"></div>
+    <!-- script -->
+    <script type="module" src="src/components/note-item.js" defer></script>
+    <script type="module" src="src/components/app-bar.js" defer></script>
+    <script type="module" src="src/components/note-input.js" defer></script>
+    <script type="module" src="src/js/main.js" defer></script>
   </body>
 </html>

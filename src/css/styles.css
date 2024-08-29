@@ -42,7 +42,7 @@ button:hover {
   background-color: #218838;
 }
 
-#notes-list {
+#note-list {
   display: grid; /* Mengaktifkan grid layout */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Membuat kolom dengan lebar minimal 200px */
   gap: 16px; /* Jarak antar catatan */

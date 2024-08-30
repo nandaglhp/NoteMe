@@ -9,6 +9,7 @@ const displayNotes = (notes) => {
   notesList.innerHTML = ""; // Kosongkan daftar catatan sebelumnya
 
   notes.forEach((note) => {
+    console.log("Note to display:", note);
     const noteElement = document.createElement("note-item");
     noteElement.setAttribute("title", note.title);
     noteElement.setAttribute("body", note.body);

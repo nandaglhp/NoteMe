@@ -30,3 +30,49 @@ export const fetchNotes = async () => {
     return []; // Mengembalikan array kosong jika terjadi kesalahan
   }
 };
+// mengambil data catatan aktif dari API.
+export const fetchArchivedNotes = async () => {
+  try {
+    const URL = "/notes/archived";
+    // Debug log sebelum melakukan request
+    // console.log("Fetching archived notes from:", `${BASE_URL}${URL}`);
+    // http req ke api
+    const response = await fetch(`${BASE_URL}${URL}`);
+    // cek status respon
+    // console.log("api respond ok: ", response.ok);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    // Mengonversi Respons Menjadi Objek JSON
+    const data = await response.json();
+    // Debug log untuk memeriksa data yang diterima
+    console.log("Data received from API:", data);
+
+    // dummy data
+    // const dummyData = [
+    //   {
+    //     id: "notes-1",
+    //     title: "Catatan Pertama",
+    //     body: "Ini adalah catatan pertama yang diarsipkan.",
+    //     createdAt: "2024-08-30T05:28:52.295Z",
+    //     archived: true,
+    //   },
+    //   {
+    //     id: "notes-2",
+    //     title: "Catatan Kedua",
+    //     body: "Ini adalah catatan kedua yang diarsipkan.",
+    //     createdAt: "2024-08-30T06:15:10.123Z",
+    //     archived: true,
+    //   },
+    // ];
+
+    // console.log("Using dummy data for archived notes:", dummyData);
+
+    // // Mengembalikan data dummy untuk diuji
+    // return dummyData;
+    return data.data; // Mengembalikan array catatan
+  } catch (error) {
+    console.error("Failed to fetch notes:", error);
+    return []; // Mengembalikan array kosong jika terjadi kesalahan
+  }
+};

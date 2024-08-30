@@ -8,15 +8,16 @@ const displayNotes = (notes) => {
   const notesList = document.getElementById("note-list");
   notesList.innerHTML = ""; // Kosongkan daftar catatan sebelumnya
 
+  console.log("List Notes to display:", notes);
   notes.forEach((note) => {
-    console.log("Note to display:", note);
     const noteElement = document.createElement("note-item");
     noteElement.setAttribute("title", note.title);
     noteElement.setAttribute("body", note.body);
     noteElement.setAttribute("createdAt", note.createdAt);
-    noteElement.setAttribute("id", note.id); // Set ID untuk penghapusan nanti
-    noteElement.setAttribute("archived", note.archived); // Set ID untuk penghapusan nanti
+    noteElement.setAttribute("id", note.id);
+    noteElement.setAttribute("archived", note.archived);
     notesList.appendChild(noteElement);
+    console.log("Note to display:", note);
   });
 };
 

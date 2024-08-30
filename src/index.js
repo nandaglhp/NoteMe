@@ -15,6 +15,7 @@ const displayNotes = (notes) => {
     noteElement.setAttribute("body", note.body);
     noteElement.setAttribute("createdAt", note.createdAt);
     noteElement.setAttribute("id", note.id); // Set ID untuk penghapusan nanti
+    noteElement.setAttribute("archived", note.archived); // Set ID untuk penghapusan nanti
     notesList.appendChild(noteElement);
   });
 };

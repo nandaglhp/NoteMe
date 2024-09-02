@@ -3,9 +3,9 @@ class NoteInput extends HTMLElement {
     super();
     this.innerHTML = `
       <form id="note-form">
-        <input type="text" id="note-title" placeholder="Title" required />
-        <textarea id="note-body" placeholder="Write your note here..." required></textarea>
-        <button type="submit">Add Note</button>
+        <input type="text" id="noteTitle" placeholder="Title" required />
+        <textarea id="noteBody" placeholder="Write your note here..." required></textarea>
+        <button type="submit", id="createNoteButton">Add Note</button>
       </form>
     `;
   }
@@ -13,8 +13,8 @@ class NoteInput extends HTMLElement {
   connectedCallback() {
     this.querySelector("form").addEventListener("submit", (event) => {
       event.preventDefault();
-      const title = this.querySelector("#note-title").value;
-      const body = this.querySelector("#note-body").value;
+      const title = this.querySelector("#noteTitle").value;
+      const body = this.querySelector("#noteBody").value;
       this.dispatchEvent(
         new CustomEvent("note-submit", {
           detail: { title, body },

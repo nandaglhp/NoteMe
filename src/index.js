@@ -1,91 +1,7 @@
-import { fetchNotes, fetchArchivedNotes, createNote } from "./js/api.js";
+import { fetchNotes, fetchArchivedNotes, createNote, getDetailNote } from "./js/api.js";
 import "./components/note-item.js";
 import "./components/app-bar.js";
 import "./components/note-input.js";
-
-// // Fungsi untuk menampilkan catatan
-// const displayNotes = (notes) => {
-//   const notesList = document.getElementById("note-list");
-//   notesList.innerHTML = ""; // Kosongkan daftar catatan sebelumnya
-
-//   // console.log("List Notes to display:", notes);
-//   notes.forEach((note) => {
-//     const noteElement = document.createElement("note-item");
-//     noteElement.setAttribute("title", note.title);
-//     noteElement.setAttribute("body", note.body);
-//     noteElement.setAttribute("createdAt", note.createdAt);
-//     noteElement.setAttribute("id", note.id);
-//     noteElement.setAttribute("archived", note.archived);
-//     notesList.appendChild(noteElement);
-//     // console.log("Note to display:", note);
-//   });
-// };
-
-// const displayArchivedNotes = (archivedNotes) => {
-//   const archivedList = document.getElementById("archived-list");
-//   archivedList.innerHTML = ""; // Kosongkan daftar catatan sebelumnya
-
-//   // console.log("List Notes to display:", notes);
-//   archivedNotes.forEach((note) => {
-//     const noteElement = document.createElement("note-item");
-//     noteElement.setAttribute("title", note.title);
-//     noteElement.setAttribute("body", note.body);
-//     noteElement.setAttribute("createdAt", note.createdAt);
-//     noteElement.setAttribute("id", note.id);
-//     noteElement.setAttribute("archived", note.archived);
-//     archivedList.appendChild(noteElement);
-//     // console.log("Note to display:", note);
-//   });
-// };
-
-// // Saat aplikasi dimuat, ambil dan tampilkan catatan
-// document.addEventListener("DOMContentLoaded", async () => {
-//   // active notes
-//   const notes = await fetchNotes();
-//   displayNotes(notes);
-//   // archived notes
-//   const archivedNotes = await fetchArchivedNotes();
-//   displayArchivedNotes(archivedNotes);
-// });
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const createNoteButton = document.getElementById("createNoteButton");
-//   createNoteButton.addEventListener("click", async () => {
-//     const title = document.getElementById("noteTitle").value;
-//     const body = document.getElementById("noteBody").value;
-
-//     // Pastikan input tidak kosong
-//     if (!title || !body) {
-//       alert("Title and body are required.");
-//       return;
-//     }
-
-//     // Panggil fungsi API untuk membuat catatan baru
-//     const newNote = await createNote(title, body);
-
-//     if (newNote) {
-//       alert("Note created successfully!");
-//       // Tambahkan logika untuk menampilkan catatan yang baru dibuat, jika diperlukan
-//       addNoteToDOM(newNote);
-//       console.log("New Note Created:", newNote);
-//     } else {
-//       alert("Failed to create note.");
-//     }
-//   });
-// });
-
-// // Fungsi untuk menambahkan catatan baru ke dalam DOM
-// function addNoteToDOM(note) {
-//   const noteList = document.getElementById("note-list"); // Elemen yang menampung daftar catatan
-//   const noteItem = document.createElement("note-item");
-
-//   noteItem.setAttribute("id", note.id);
-//   noteItem.setAttribute("title", note.title);
-//   noteItem.setAttribute("body", note.body);
-//   noteItem.setAttribute("createdAt", note.createdAt);
-
-//   noteList.appendChild(noteItem);
-// }
 
 // Fungsi untuk menampilkan catatan
 const displayNotes = (notes) => {
@@ -185,3 +101,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Ambil ID catatan dari URL
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const noteId = urlParams.get("note_id");
+
+  if (!noteId) {
+    // console.error("No note ID provided in the URL.");
+    return;
+  }
+
+  // Ambil detail catatan dari API
+  try {
+    const note = await getDetailNote(noteId);
+
+    if (note) {
+      displayNoteDetail(note);
+    } else {
+      document.getElementById("note-detail").innerHTML = "Note not found.";
+    }
+  } catch (error) {
+    console.error("Error fetching note details:", error);
+    document.getElementById("note-detail").innerHTML = "Error loading note details.";
+  }
+});
+
+// Fungsi untuk menampilkan detail catatan
+function displayNoteDetail(note) {
+  const noteDetailElement = document.getElementById("note-detail");
+  noteDetailElement.innerHTML = `
+      <h2>${note.title}</h2>
+      <p>${note.body}</p>
+      <small>Created at: ${new Date(note.createdAt).toLocaleString()}</small>
+  `;
+}

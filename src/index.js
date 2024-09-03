@@ -1,4 +1,4 @@
-import { fetchNotes, fetchArchivedNotes, createNote, getDetailNote } from "./js/api.js";
+import { fetchNotes, fetchArchivedNotes, createNote, getDetailNote, deleteNote } from "./js/api.js";
 import "./components/note-item.js";
 import "./components/app-bar.js";
 import "./components/note-input.js";
@@ -135,5 +135,26 @@ function displayNoteDetail(note) {
       <h2>${note.title}</h2>
       <p>${note.body}</p>
       <small>Created at: ${new Date(note.createdAt).toLocaleString()}</small>
+      <button id="delete-note-button">Delete Note</button>
   `;
+
+  // Event listener untuk menghapus catatan
+  const deleteButton = document.getElementById("delete-note-button");
+  if (deleteButton) {
+    deleteButton.addEventListener("click", async () => {
+      try {
+        console.log(note.id);
+        const response = await deleteNote(note.id);
+        if (response === "Note deleted") {
+          alert("Note deleted successfully!");
+          window.location.href = "/index.html"; // Redirect to main page or any other page
+        } else {
+          alert("Failed to delete note.");
+        }
+      } catch (error) {
+        console.error("Error deleting note:", error);
+        alert("An error occurred while deleting the note.");
+      }
+    });
+  }
 }

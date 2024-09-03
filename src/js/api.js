@@ -134,3 +134,25 @@ export const getDetailNote = async (note_id) => {
     return []; // Mengembalikan array kosong jika terjadi kesalahan
   }
 };
+
+// hapus catatan
+export const deleteNote = async (note_id) => {
+  try {
+    const URL = `/notes/${note_id}`; // Perbaiki noteId dari note_id
+    console.log("Delete note url:", `${BASE_URL}${URL}`);
+    const response = await fetch(`${BASE_URL}${URL}`, {
+      method: "DELETE",
+    });
+    console.log("API respond ok:", response.ok);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("Data received from API:", data);
+
+    return data.message; // Mengembalikan pesan
+  } catch (error) {
+    console.error("Failed to delete note:", error);
+    return null; // Mengembalikan null jika terjadi kesalahan
+  }
+};

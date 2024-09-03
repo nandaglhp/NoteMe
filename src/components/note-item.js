@@ -32,6 +32,7 @@ class NoteItem extends HTMLElement {
           .note-item a:hover {
             text-decoration: underline;
           }
+         
         </style>
         <div class="note-item">
           <h3><a href="/detail.html?note_id=${id}">${title}</a></h3>

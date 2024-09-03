@@ -3,6 +3,7 @@ import "./components/note-item.js";
 import "./components/app-bar.js";
 import "./components/note-input.js";
 import "./css/styles.css";
+import "./components/loading-indicator.js";
 
 // Fungsi untuk menampilkan catatan
 const displayNotes = (notes) => {

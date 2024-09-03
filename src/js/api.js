@@ -11,6 +11,8 @@ const BASE_URL = "https://notes-api.dicoding.dev/v2";
 
 // mengambil data catatan aktif dari API.
 export const fetchNotes = async () => {
+  const loadingIndicator = document.getElementById("loading");
+  loadingIndicator.style.display = "block";
   try {
     // Debug log sebelum melakukan request
     // console.log("Fetching notes from:", `${BASE_URL}/notes`);
@@ -29,6 +31,8 @@ export const fetchNotes = async () => {
   } catch (error) {
     console.error("Failed to fetch notes:", error);
     return []; // Mengembalikan array kosong jika terjadi kesalahan
+  } finally {
+    loadingIndicator.style.display = "none";
   }
 };
 

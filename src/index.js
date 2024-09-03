@@ -2,6 +2,7 @@ import { fetchNotes, fetchArchivedNotes, createNote, getDetailNote, deleteNote }
 import "./components/note-item.js";
 import "./components/app-bar.js";
 import "./components/note-input.js";
+import "./css/styles.css";
 
 // Fungsi untuk menampilkan catatan
 const displayNotes = (notes) => {
